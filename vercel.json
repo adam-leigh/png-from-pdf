@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app.py"
+    }
+  ],
+  "ignore": [
+    "__pycache__/**",
+    "temp/**",
+    "*.pyc",
+    "poetry.lock",
+    "pyproject.toml"
+  ],
+  "static": {
+    "public": "templates",
+    "headers": [
+      {
+        "source": "/templates/(.*)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=0"
+          }
+        ]
+      }
+    ]
+  }
+}
+
